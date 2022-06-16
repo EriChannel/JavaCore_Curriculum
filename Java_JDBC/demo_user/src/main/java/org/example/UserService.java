@@ -79,4 +79,38 @@ public class UserService {
 
         return fUser;
     }
+
+    public void addNewUser(User newUser){
+
+        Connection conn = connectDatabase.getConnect();
+
+        String query = "INSERT INTO `users`(`id`, `user_name`, `email`, `password`, `create_at`) " +
+                "VALUES (?,?,?,?,NOW())";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(query);
+
+            pstm.setString(1, newUser.getId());
+            pstm.setString(2, newUser.getUserName());
+            pstm.setString(3, newUser.getEmail());
+            pstm.setString(4, newUser.getPassword());
+
+            int row = pstm.executeUpdate();
+            System.out.println("Số dữ liệu được thêm: "+ row) ;
+
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updatePassword (User user, String newPassword){
+
+    }
+
+    public User checkLogin(String email, String password){
+        User userLogin = null;
+        //Code xử lý
+
+        return userLogin;
+    }
 }
